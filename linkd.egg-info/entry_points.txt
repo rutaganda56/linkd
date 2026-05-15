@@ -1,0 +1,2 @@
+[console_scripts]
+linkd = linkd.main:main
