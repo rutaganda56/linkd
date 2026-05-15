@@ -1,2 +1,2 @@
 [console_scripts]
-linkd = main:main
+linkd = linkd.main:main

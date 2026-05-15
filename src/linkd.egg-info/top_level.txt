@@ -1,4 +1,0 @@
-github_api
-main
-reddit_api
-utils
