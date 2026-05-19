@@ -4,6 +4,7 @@ from rich.status import Status
 from linkd.utils import console
 from linkd.banner import show_banner,show_help_screen
 from linkd.reddit_api import search_reddit
+from linkd.stack_overflow_api import get_stackOverFlowData
 from linkd.utils import (
     create_table,
     print_error,
@@ -15,6 +16,7 @@ def process_topic(topic):
     with console.status(
             "[bold green] cooking..."
         ):
+            # Github repositories
             repos=search_github(topic)
             if not repos:
                 print_error("No repositories found")
@@ -30,6 +32,8 @@ def process_topic(topic):
                     repo['clone_url']
                 )
             console.print(github_table)
+
+            # Reddit Posts
             posts = search_reddit(topic)
             reddit_table=create_table("Reddit posts")
             if not posts:
@@ -42,6 +46,29 @@ def process_topic(topic):
                     f"https://reddit.com{post_data['permalink']}"
                 )
             console.print(reddit_table)
+
+            # #Stack overflow answers
+            # answers= get_stackOverFlowData(topic)
+            # stackOverflow_table=create_table("Stack overflow answers")
+            # stackOverflow_table.add_column("#",width=4)
+            # stackOverflow_table.add_column("Title",overflow="fold"),
+            # stackOverflow_table.add_column("Votes"),
+            # stackOverflow_table.add_column("Answers"),
+            # stackOverflow_table.add_column("Link",overflow="fold")
+
+            # if not answers:
+            #     print_error("No Stack-over-flow answers received")
+            # for index,answer in enumerate(answers,start=1):
+            #     stackOverflow_table.add_row(
+            #         str(index),
+            #         str(answer.get('title','N/A')),
+            #         str(answer.get('score',0)),
+            #         str(answer.get('answer_count',0)),
+            #         str(answer.get('link'),'N/A')
+            #     )   
+            #     console.print(stackOverflow_table) 
+
+
 def interactive_mode():
     while True:
         try:
